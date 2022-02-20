@@ -26,10 +26,10 @@ class TrustMiddleware implements MiddlewareInterface {
         if (!$this->app->moduleIsLoaded(CloudflareModule::class)){
             return $handler->handle($request);
         }
-        if ($this->container->get('cloudflare.enabled') === 'false'){
+        if ($this->container->get('cloudflare')['enabled'] === 'false'){
             return $handler->handle($request);
         }
-        $name = $this->container->get('cloudflare.forwardedfor');
+        $name = $this->container->get('cloudflare')['forwardedfor'];
         $request = $request->withAddedHeader($name, $request->getHeaderLine('CF-Connecting-IP'));
         if ($request->getUri()->getScheme() === 'HTTPS'){
             $cfVisitorHeader = $request->getHeaderLine('CF-Visitor');

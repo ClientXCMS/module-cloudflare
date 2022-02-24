@@ -38,7 +38,7 @@ class TrustMiddleware implements MiddlewareInterface {
                 $request = $request->withAddedHeader('X-Forwarded-Proto', $cfVisitor->scheme)->withAddedHeader('X-Forwarded-Port', $cfVisitor->scheme === 'https' ? 443 : 80);
             }
         }
-        return $request;
+            return $handler->handle($request);
     }
 
 }
